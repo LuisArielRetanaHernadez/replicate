@@ -11,9 +11,9 @@ export default function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <form action={createPrediction}>
-        <Input type="file" name="image" accept="image/*"/>
-        <Textarea name="prompt"/>
+      <form action={createPrediction} className="grid gap-4">
+        <Input type="file" name="image" accept="image/*" className="border border-black"/>
+        <Textarea name="prompt" className="border border-black"/>
         <Button>Crear</Button>
       </form>
     </main>
