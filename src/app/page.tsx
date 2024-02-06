@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <form>
-        <Input type="file" accept="image/*"/>
-        <Textarea />
+        <Input type="file" name="image" accept="image/*"/>
+        <Textarea name="prompt"/>
         <Button>Crear</Button>
       </form>
     </main>
