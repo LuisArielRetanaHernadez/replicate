@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Prediction } from "@/types";
 import Image from "next/image";
 
 export default function Home() {
@@ -27,7 +28,7 @@ export default function Home() {
       "method": "POST",
       "mode": "cors",
       "credentials": "include"
-    }).then(response => response.json());
+    }).then(response => response.json() as Promise<Prediction>);
     
   }
   return (
