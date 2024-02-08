@@ -27,9 +27,9 @@ export default function Home() {
       "body": JSON.stringify({
         input: {
           "eta": 0,
-          "image": "https://replicate.delivery/pbxt/IJZOELWrncBcjdE1s5Ko8ou35ZOxjNxDqMf0BhoRUAtv76u4/room.png",
+          "image": formData.get('image'),
           "scale": 9,
-          "prompt": "a cheerful modernist bedroom",
+          "prompt": formData.get('prompt'),
           "a_prompt": "best quality, extremely detailed",
           "n_prompt": "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
           "ddim_steps": 20,
