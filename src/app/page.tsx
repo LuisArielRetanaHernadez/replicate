@@ -27,9 +27,9 @@ export default function Home() {
       "body": JSON.stringify({
         input: {
           "eta": 0,
-          "image": formData.get('image'),
+          "image": formData.get('image') as string,
           "scale": 9,
-          "prompt": formData.get('prompt'),
+          "prompt": formData.get('prompt') as string,
           "a_prompt": "best quality, extremely detailed",
           "n_prompt": "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
           "ddim_steps": 20,
