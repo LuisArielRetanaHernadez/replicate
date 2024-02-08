@@ -4,9 +4,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Prediction } from "@/types";
 import Image from "next/image";
 
+import { unstable_noStore as notStore } from "next/cache";
+
 export default function Home() {
   async function createPrediction(formData: FormData) {
     'use server'
+
+    notStore()
 
     const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
     
