@@ -1,5 +1,5 @@
 export interface Prediction {
-  status: string | 'processing' | 'succeede';
+  status: 'starting' | 'processing' | 'succeede';
   id: string;
   output: [string, string];
 }

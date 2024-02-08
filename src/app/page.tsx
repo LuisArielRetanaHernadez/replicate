@@ -7,8 +7,10 @@ import Image from "next/image";
 export default function Home() {
   async function createPrediction(formData: FormData) {
     'use server'
+
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
     
-    const prediction = fetch("https://replicate.com/api/predictions", {
+    let prediction = await fetch("https://replicate.com/api/predictions", {
       "headers": {
         "accept": "application/json",
         "accept-language": "es-419,es;q=0.7",
@@ -50,12 +52,39 @@ export default function Home() {
       "mode": "cors",
       "credentials": "include"
     }).then(response => response.json() as Promise<Prediction>);
+
+    while(['starting', 'processing'].includes(prediction.status)) {
+      prediction = await fetch("https://replicate.com/api/predictions/" + prediction, {
+        "headers": {
+          "accept": "*/*",
+          "accept-language": "es-419,es;q=0.8",
+          "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Brave\";v=\"121\", \"Chromium\";v=\"121\"",
+          "sec-ch-ua-mobile": "?0",
+          "sec-ch-ua-platform": "\"Windows\"",
+          "sec-fetch-dest": "empty",
+          "sec-fetch-mode": "cors",
+          "sec-fetch-site": "same-origin",
+          "sec-gpc": "1"
+        },
+        "referrer": "https://replicate.com/jagilley/controlnet-hough?input=http",
+        "referrerPolicy": "same-origin",
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "include"
+      }).then(responde => responde.json() as Promise<Prediction>);
+      await sleep(400)
+    }
+
+    console.log('prediction ', prediction)
     
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <form action={createPrediction} className="grid gap-4">
-        <Input type="file" name="image" accept="image/*" className="border border-black"/>
+        <Input type="file" name="image" accept="image/*"
+        defaultValue={'https://static.wixstatic.com/media/960172_9922f4fa749e4a5084a1e87b47e9818f~mv2.png/v1/fill/w_500,h_473,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/960172_9922f4fa749e4a5084a1e87b47e9818f~mv2.png'}
+         className="border border-black"/>
         <Textarea name="prompt" className="border border-black outline-none"/>
         <Button>Crear</Button>
       </form>
