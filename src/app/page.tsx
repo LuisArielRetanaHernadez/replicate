@@ -24,7 +24,28 @@ export default function Home() {
       },
       "referrer": "https://replicate.com/jagilley/controlnet-hough?input=http",
       "referrerPolicy": "same-origin",
-      "body": "{\"input\":{\"eta\":0,\"image\":\"https://replicate.delivery/pbxt/IJZOELWrncBcjdE1s5Ko8ou35ZOxjNxDqMf0BhoRUAtv76u4/room.png\",\"scale\":9,\"prompt\":\"a cheerful modernist bedroom\",\"a_prompt\":\"best quality, extremely detailed\",\"n_prompt\":\"longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality\",\"ddim_steps\":20,\"num_samples\":\"1\",\"value_threshold\":0.1,\"image_resolution\":\"512\",\"detect_resolution\":512,\"distance_threshold\":0.1},\"is_training\":false,\"create_model\":\"0\",\"stream\":false,\"version\":\"854e8727697a057c525cdb45ab037f64ecca770a1769cc52287c2e56472a247b\"}",
+      "body": JSON.stringify({
+        input: {
+          "eta": 0,
+          "image": "https://replicate.delivery/pbxt/IJZOELWrncBcjdE1s5Ko8ou35ZOxjNxDqMf0BhoRUAtv76u4/room.png",
+          "scale": 9,
+          "prompt": "a cheerful modernist bedroom",
+          "a_prompt": "best quality, extremely detailed",
+          "n_prompt": "longbody, lowres, bad anatomy, bad hands, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality",
+          "ddim_steps": 20,
+          "num_samples": "1",
+          "value_threshold": 0.1,
+          "image_resolution": "512",
+          "detect_resolution": "512",
+          "distance_threshold": 0.1
+        },
+        is_training: false,
+        create_model: "0",
+        stream: false,
+        version: "854e8727697a057c525cdb45ab037f64ecca770a1769cc52287c2e56472a247b"
+      }
+
+      ),
       "method": "POST",
       "mode": "cors",
       "credentials": "include"
