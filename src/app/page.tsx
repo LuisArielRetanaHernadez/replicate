@@ -5,16 +5,17 @@ import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 
 import { unstable_noStore as notStore } from "next/cache";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { createPrediction } from "@/actions";
 const FormContent = () => {
+  const { pending } = useFormStatus()
   return (
     <>
       <Input type="text" name="image"
         defaultValue='https://mueblescook.com.mx/wp-content/uploads/2020/10/Goal-Casaa2.gif'
         className="border border-black"/>
       <Textarea name="prompt" className="border border-black outline-none"/>
-      <Button type="submit">Crear</Button>
+      <Button disabled={pending} type="submit">Crear</Button>
     </>
   )
 }
