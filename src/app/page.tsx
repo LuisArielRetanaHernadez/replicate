@@ -12,6 +12,9 @@ export default function Home() {
   const [state, formAction] = useFormState(createPrediction, null)
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      {
+        state?.output && <img src={state.output[1]} alt="output"/>
+      }
       <form action={formAction} className="grid gap-4">
         <Input type="text" name="image"
           defaultValue='https://mueblescook.com.mx/wp-content/uploads/2020/10/Goal-Casaa2.gif'
