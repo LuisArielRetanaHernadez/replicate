@@ -3,11 +3,12 @@
 import { unstable_noStore as notStore } from "next/cache";
 import { Prediction } from "./types"
 
-export async function createPrediction(formData: FormData) {
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
+export async function createPrediction(state: null | Prediction, formData: FormData) {
   'use server'
   notStore()
 
-  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
   console.log('dates ', formData)
   let prediction = await fetch("https://replicate.com/api/predictions", {
     headers: {
