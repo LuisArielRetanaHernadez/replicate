@@ -77,6 +77,6 @@ export async function createPrediction(formData: FormData) {
     await sleep(4000)
   }
 
-  console.log('prediction ', prediction)
+  return prediction
   
 }
