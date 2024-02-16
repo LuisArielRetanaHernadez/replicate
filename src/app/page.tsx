@@ -27,7 +27,7 @@ export default function Home() {
         state?.output && <img src={state.output[1]} alt="output"/>
       }
       <form action={formAction} className="grid gap-4">
-        {FormContent()}
+        {<FormContent />}
       </form>
     </main>
   );
