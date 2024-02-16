@@ -7,6 +7,8 @@ import { useFormState, useFormStatus } from "react-dom";
 import { createPrediction, getPrediction } from "@/actions";
 import { Prediction } from "@/types";
 
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 const FormContent = () => {
   const { pending } = useFormStatus()
   return (
@@ -20,22 +22,20 @@ const FormContent = () => {
   )
 }
 
-export default function Home() {
-  // arreglar la inicializacion del handleSubmit
+const handleSubmit = async (_state: Prediction, formData: FormData) => {
+  let prediction = await createPrediction(formData)
 
-  const handleSubmit = async (_state: Prediction, formData: FormData) => {
-    let prediction = await createPrediction(formData)
-
-    while(["starting", "processing"].includes(prediction.status)) {
-      prediction = await getPrediction(prediction.id)
-      console.log(prediction)
-      await sleep(1000)
-    }
-
-    return prediction
-
+  while(["starting", "processing"].includes(prediction.status)) {
+    prediction = await getPrediction(prediction.id)
+    await sleep(1000)
   }
 
+  return prediction
+
+}
+
+export default function Home() {
+  // arreglar la inicializacion del handleSubmit
   const [state, formAction] = useFormState(handleSubmit, null)
 
 
