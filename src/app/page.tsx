@@ -23,20 +23,26 @@ const FormContent = () => {
   )
 }
 export default function Home() {
+  const [state, formAction] = useFormState(handleSubmit, null)
 
   const handleSubmit = async (_state: Prediction, formData: FormData) => {
     let prediction = await createPrediction(formData)
+
     while(["starting", "processing"].includes(prediction.status)) {
       prediction = await getPrediction(prediction.id)
       await sleep(1000)
     }
+
+    return prediction
+
   }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {
         state?.output && <img src={state.output[1]} alt="output"/>
       }
-      <form action={handleSubmit} className="grid gap-4">
+      <form action={formAction} className="grid gap-4">
         {<FormContent />}
       </form>
     </main>
