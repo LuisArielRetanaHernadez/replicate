@@ -7,6 +7,7 @@ import Image from "next/image";
 import { unstable_noStore as notStore } from "next/cache";
 import { useFormState, useFormStatus } from "react-dom";
 import { createPrediction } from "@/actions";
+import { Prediction } from "@/types";
 const FormContent = () => {
   const { pending } = useFormStatus()
   return (
@@ -21,7 +22,7 @@ const FormContent = () => {
 }
 export default function Home() {
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (_state: Prediction, formData: FormData) => {
     const prediction = await createPrediction(formData)
   }
   return (

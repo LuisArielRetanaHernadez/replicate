@@ -80,3 +80,25 @@ export async function createPrediction(formData: FormData): Promise<Prediction> 
   return prediction
   
 }
+
+export async function getPrediction(id: string): Promise<Prediction> {
+  return fetch("https://replicate.com/api/predictions/" + id, {
+      headers: {
+        accept: "*/*",
+        "accept-language": "es-419,es;q=0.8",
+        "sec-ch-ua": '"Not_A Brand";v="99", "Brave";v="121", "Chromium";v="121"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "sec-gpc": "1"
+      },
+      referrer: "https://replicate.com/jagilley/controlnet-hough?input=http",
+      referrerPolicy: "same-origin",
+      body: null,
+      method: "GET",
+      mode: "cors",
+      credentials: "include"
+    }).then(responde => responde.json() as Promise<Prediction>);
+}
