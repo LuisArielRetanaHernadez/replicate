@@ -7,7 +7,18 @@ export async function createPrediction(formData: FormData): Promise<Prediction> 
   'use server'
   notStore()
 
-  console.log('dates ', formData)
+  const imageURL = await fetch(
+    `https://api.cloudinary.com/v1_1/dqmkovsdy/image/upload?upload_preset=replicate&folder=replicate`,
+    {
+      method: "PUT",
+      body: formData.get('image') as File,
+    },
+  )
+  .then(res => res.json() as Promise<{secure_url: string}>)
+  .then(({secure_url}) => secure_url)
+
+  console.log(imageURL)
+
   let prediction = await fetch("https://replicate.com/api/predictions", {
     headers: {
       accept: "application/json",
@@ -27,7 +38,7 @@ export async function createPrediction(formData: FormData): Promise<Prediction> 
     body: JSON.stringify({
       input: {
         et: 0,
-        image: formData.get('image') as string,
+        image: imageURL,
         scale: 9,
         prompt: formData.get('prompt') as string,
         a_prompt: "best quality, extremely detailed",

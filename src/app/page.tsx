@@ -13,7 +13,7 @@ const FormContent = () => {
   const { pending } = useFormStatus()
   return (
     <>
-      <Input type="text" name="image"
+      <Input type="file" name="image"
         defaultValue='https://mueblescook.com.mx/wp-content/uploads/2020/10/Goal-Casaa2.gif'
         className="border border-black"/>
       <Textarea name="prompt" className="border border-black outline-none"/>
@@ -27,6 +27,7 @@ const handleSubmit = async (_state: Prediction, formData: FormData) => {
 
   while(["starting", "processing"].includes(prediction.status)) {
     prediction = await getPrediction(prediction.id)
+    console.log(prediction)
     await sleep(1000)
   }
 
