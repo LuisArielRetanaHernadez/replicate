@@ -3,8 +3,6 @@
 import { unstable_noStore as notStore } from "next/cache";
 import { Prediction } from "./types"
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
 export async function createPrediction(formData: FormData): Promise<Prediction> {
   'use server'
   notStore()

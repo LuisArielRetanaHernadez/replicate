@@ -4,9 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 import { unstable_noStore as notStore } from "next/cache";
 import { useFormState, useFormStatus } from "react-dom";
-import { createPrediction } from "@/actions";
+import { createPrediction, getPrediction } from "@/actions";
 import { Prediction } from "@/types";
 const FormContent = () => {
   const { pending } = useFormStatus()
@@ -23,7 +25,11 @@ const FormContent = () => {
 export default function Home() {
 
   const handleSubmit = async (_state: Prediction, formData: FormData) => {
-    const prediction = await createPrediction(formData)
+    let prediction = await createPrediction(formData)
+    while(["starting", "processing"].includes(prediction.status)) {
+      prediction = await getPrediction(prediction.id)
+      await sleep(1000)
+    }
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
