@@ -5,7 +5,7 @@ import { Prediction } from "./types"
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-export async function createPrediction(_state: null | Prediction, formData: FormData): Promise<Prediction> {
+export async function createPrediction(formData: FormData): Promise<Prediction> {
   'use server'
   notStore()
 
