@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {
-        state?.output && <img src={state.output[0]} alt="output"/>
+        state?.output && <img src={state.output.length > 1 ? state.output[1] : state.output[0]} alt="output"/>
       }
       <form action={formAction} className="grid gap-4">
         {<FormContent />}
