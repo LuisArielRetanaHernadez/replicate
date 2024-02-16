@@ -3,6 +3,8 @@
 import { unstable_noStore as notStore } from "next/cache";
 import { Prediction } from "./types"
 
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 export async function createPrediction(formData: FormData): Promise<Prediction> {
   'use server'
   notStore()
@@ -79,9 +81,13 @@ export async function createPrediction(formData: FormData): Promise<Prediction> 
   
 }
 
-export async function getPrediction(id: string): Promise<Prediction> {
+export async function getPrediction(id: string, prediction: Prediction): Promise<Prediction> {
   notStore()
-  return fetch("https://replicate.com/api/predictions/" + id, {
+
+  let predictionNew = prediction
+
+  while(["starting", "processing"].includes(prediction.status)) {
+    predictionNew = await fetch("https://replicate.com/api/predictions/" + id, {
       headers: {
         accept: "*/*",
         "accept-language": "es-419,es;q=0.8",
@@ -100,4 +106,8 @@ export async function getPrediction(id: string): Promise<Prediction> {
       mode: "cors",
       credentials: "include"
     }).then(responde => responde.json() as Promise<Prediction>);
+
+    await sleep(1000)
+  }
+  return predictionNew
 }

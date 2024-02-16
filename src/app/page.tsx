@@ -7,8 +7,6 @@ import { useFormState, useFormStatus } from "react-dom";
 import { createPrediction, getPrediction } from "@/actions";
 import { Prediction } from "@/types";
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
-
 const FormContent = () => {
   const { pending } = useFormStatus()
   return (
